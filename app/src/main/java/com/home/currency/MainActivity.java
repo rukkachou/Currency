@@ -11,9 +11,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final float EXCHANGE_RATE_US = 30.9f;
+    private static final float EXCHANGE_RATE_JP = 0.2773f;
 
     private EditText edtNTD;
     private TextView textUs;
+    private TextView textJp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         edtNTD = findViewById(R.id.ntd_edt);
         textUs = findViewById(R.id.us_text);
+        textJp = findViewById(R.id.jp_text);
     }
 
     public void converter(View view) {
@@ -34,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             float fNtd = Float.parseFloat(edtNTD.getText().toString());
             float fUs = fNtd/EXCHANGE_RATE_US;
+            float fJp = fNtd/EXCHANGE_RATE_JP;
+
             new AlertDialog.Builder(this)
                     .setTitle(R.string.result)
-                    .setMessage(getString(R.string.result_message) + fUs)
+                    .setMessage(getString(R.string.usd_is) + fUs + "\n" + getString(R.string.jpy_is) + fJp)
                     .setPositiveButton(R.string.ok, null)
                     .show();
             textUs.setText(String.valueOf(fUs));
+            textJp.setText(String.valueOf(fJp));
         }
     }
 }
